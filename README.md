@@ -1,144 +1,136 @@
-Aluno: Fabrício Oliveira de Sousa - 2310346
+# 📚 Relatório de Análise de Desempenho — Algoritmos de Busca Serial e Paralela (CPU/GPU)
 
-## Como Executar o Projeto
+**Aluno:** Fabrício Oliveira de Sousa - **Matrícula:** 2310346
 
-1. Clone o repositório
+## 🚀 Resumo Executivo
 
-git clone https://github.com/Fabricioodsousa/ComputacaoParalela.git
+Este trabalho apresenta a implementação e análise estatística de **algoritmos de busca em arquivos de texto** utilizando abordagens **serial**, **paralela via CPU** (com 1, 2, 4 e 8 threads) e **paralela via GPU**.
 
-2. Entre na pasta do projeto
+Os experimentos foram realizados sobre três obras literárias clássicas (**Don Quixote, Drácula e Moby Dick**), registrando tempos de execução e o número de ocorrências da palavra buscada ("the").
 
-cd SEU_REPOSITORIO
+### 🎯 Principais Conclusões
 
-3. Execute a Main
+Os resultados demonstraram diferenças significativas entre os métodos, evidenciando que o desempenho ideal é alcançado com um **nível moderado de paralelização na CPU (2-4 threads)**. O uso da GPU se mostrou **irregular** e, em geral, **não superou** o desempenho otimizado da CPU para esta carga de trabalho específica.
 
-4. Resultados
+---
 
-Os arquivos CSV com os tempos e análises ficarão na pasta: /Resultados
+## 💻 Como Executar o Projeto
 
+Siga os passos abaixo para clonar o repositório e executar a aplicação:
 
-## Relatório de Análise de Desempenho — Algoritmos de Busca Serial e Paralela (CPU/GPU)
+1.  **Clone o Repositório:**
+    ```bash
+    git clone [https://github.com/Fabricioodsousa/ComputacaoParalela.git](https://github.com/Fabricioodsousa/ComputacaoParalela.git)
+    ```
 
-# Resumo
+2.  **Entre na Pasta do Projeto:**
+    ```bash
+    cd ComputacaoParalela
+    ```
 
-Este trabalho apresenta a implementação, execução e análise estatística de algoritmos de busca em arquivos de texto utilizando abordagens seriais, paralelas via CPU (1, 2, 4 e 8 threads) e paralela via GPU. Os experimentos foram realizados sobre três obras literárias clássicas — Don Quixote, Dracula e Moby Dick — e registraram tempos de execução e número de ocorrências da palavra buscada.
+3.  **Execute a Classe Principal (`Main`):**
 
-Os resultados demonstram diferenças significativas entre os métodos, evidenciando como o desempenho é influenciado pelo nível de paralelização e pelo tamanho do arquivo analisado.
+4.  **Resultados da Execução:**
+    * Os arquivos CSV contendo todos os tempos e análises de desempenho serão gerados e salvos na pasta:
+        **`/Resultados`**
 
-# Introdução
+---
 
-O objetivo deste trabalho é comparar o desempenho de diferentes métodos de busca em grandes conjuntos de dados textuais. Quatro métodos principais foram implementados:
+## 📖 Introdução e Objetivos
 
-SerialCPU: busca sequencial simples.
+O principal objetivo deste trabalho é **comparar o desempenho** de diferentes estratégias de busca em grandes conjuntos de dados textuais.
 
-ParallelCPU(n): busca paralela utilizando n threads.
+### Métodos de Busca Implementados
 
-ParallelGPU: busca paralela utilizando processamento gráfico.
+| Método | Descrição |
+| :--- | :--- |
+| **SerialCPU** | Busca sequencial simples. |
+| **ParallelCPU(n)** | Busca paralela utilizando **$n$** threads (onde $n \in \{1, 2, 4, 8\}$). |
+| **ParallelGPU** | Busca paralela utilizando processamento gráfico (GPU). |
 
-A abordagem visa compreender como o desempenho se altera conforme o nível de paralelismo aumenta e como CPUs e GPUs lidam com cargas de trabalho intensivas de busca.
+A análise visa compreender como o desempenho se altera conforme o nível de paralelismo aumenta e como as arquiteturas (CPU vs. GPU) lidam com cargas de trabalho intensivas de busca textual.
 
-# Metodologia
+---
 
-1. Implementação dos Algoritmos
+## 🛠️ Metodologia
 
-Foram desenvolvidas implementações em Java para:
+### 1. Implementação
 
-Busca sequencial (serial)
+* Desenvolvimento de implementações em **Java** para busca sequencial, busca paralela com variação de threads e busca em GPU (utilizando bibliotecas de paralelismo).
 
-Busca paralela com variação de threads
+### 2. Framework de Teste
 
-Busca em GPU usando bibliotecas de paralelismo
+Foi criado um *framework* para automação e registro dos testes, responsável por:
+* Executar cada algoritmo **3 vezes** por arquivo para obter uma média estável.
+* Registrar os **tempos de execução** (em milissegundos).
+* Contar as ocorrências da palavra-alvo: **"the"**.
+* Salvar todos os dados brutos no formato **CSV**.
 
-2. Framework de Teste
+### 3. Ambientes de Teste
 
-Criou-se um framework responsável por:
+| Tipo de Processamento | Níveis de Paralelismo |
+| :--- | :--- |
+| **CPU (Serial)** | 1 thread |
+| **CPU (Paralela)** | 1, 2, 4 e 8 threads |
+| **GPU (Paralela)** | Paralelismo massivo |
 
-Executar cada algoritmo 3 vezes por arquivo
+### 4. Análise Estatística
 
-Registrar tempos de execução
+A análise focou em: **Tempo médio de execução**, **estabilidade do método (variação)** e **escalabilidade** conforme o aumento de threads e a comparação direta entre CPU e GPU.
 
-Contar ocorrências da palavra “the”
+---
 
-Salvar os resultados em arquivos CSV
+## 📊 Resultados e Discussão
 
-3. Execução em Ambientes Variados
+Os resultados de desempenho são apresentados a seguir, com ênfase na variação dos tempos de execução (mínimo-máximo).
 
-Os experimentos foram realizados variando:
+### 1. Don Quixote (2.1 MB) — 188 Ocorrências
 
-Tipo de processamento (CPU serial, CPU paralela, GPU)
+| Método | Variação de Tempo (ms) | Observação |
+| :--- | :--- | :--- |
+| **SerialCPU** | 117 – 212 ms | Linha de base. |
+| **ParallelCPU(4)** | **72 – 119 ms** | **Melhor Desempenho.** |
+| **ParallelCPU(8)** | 120 – 250 ms | Instabilidade e piora em alguns casos devido a sobrecarga. |
+| **ParallelGPU** | 117 – 190 ms | Próxima do desempenho serial, pouca ou nenhuma vantagem. |
 
-Número de threads no caso da CPU
+> 💡 **Conclusão Parcial:** A paralelização moderada (2–4 threads) é o ponto de maior eficiência para arquivos grandes.
 
-Três arquivos com tamanhos diferentes
+### 2. Drácula (869 KB) — 8101 Ocorrências
 
-4. Registro de Dados
+| Método | Variação de Tempo (ms) | Observação |
+| :--- | :--- | :--- |
+| **SerialCPU** | 30 – 74 ms | Rápida devido ao tamanho médio do arquivo. |
+| **ParallelCPU(2)** | **31 – 32 ms** | Excelente estabilidade e consistência. |
+| **ParallelCPU(8)** | 35 – 70 ms | Maior variação e picos de lentidão. |
+| **ParallelGPU** | 44 – 48 ms | Desempenho sem vantagem em relação à CPU paralela. |
 
-Todos os resultados foram salvos no formato CSV, permitindo posterior análise estatística com gráficos.
+> 💡 **Conclusão Parcial:** Arquivos médios tendem a se beneficiar pouco de alto paralelismo, sendo **2 threads** o ideal pela estabilidade e baixa sobrecarga.
 
-5. Análise Estatística
+### 3. Moby Dick (1.2 MB) — 14715 Ocorrências
 
-A análise investigou:
+| Método | Variação de Tempo (ms) | Observação |
+| :--- | :--- | :--- |
+| **SerialCPU** | 51 – 128 ms | Linha de base. |
+| **ParallelCPU(2/4)** | **41 – 82 ms** | Melhores e mais consistentes tempos. |
+| **ParallelCPU(8)** | 60 – 110 ms | Instabilidade perceptível. |
+| **ParallelGPU** | 73 – 112 ms | Desempenho lento. |
 
-Tempo médio de execução
+> 💡 **Conclusão Parcial:** Paralelizar até **4 threads** melhora o desempenho significativamente; acima disso, o *overhead* (sobrecarga de gerenciamento de threads) começa a prejudicar.
 
-Variação e estabilidade do método
+---
 
-Escalabilidade conforme o número de threads
+## ✅ Conclusão Final
 
-Comparação entre CPU serial, CPU paralela e GPU
+Este estudo demonstrou a importância de otimizar o nível de paralelismo de acordo com o *workload* e a arquitetura:
 
-Resultados e Discussão
+* **Eficiência da CPU:** Algoritmos paralelos na CPU melhoraram o desempenho, sendo **ParallelCPU(2) e ParallelCPU(4)** o ponto de **melhor custo-benefício** para a busca textual.
+* **GPU para Busca Textual:** A GPU, embora poderosa em cálculos massivos e uniformes, não se mostrou ideal para esta tarefa de busca em arquivo, onde a latência e o *overhead* de transferência de dados se sobrepuseram ao ganho de paralelismo.
+* **Reutilização:** O *framework* de teste desenvolvido provou ser eficaz para análise estatística e poderá ser facilmente reutilizado em futuros estudos de desempenho.
 
-1. Don Quixote — 2.1 MB — 188 ocorrências
+---
 
-A busca serial variou entre 117–212ms
+## 🔗 Código Fonte
 
-O modo paralelo com 4 threads apresentou os melhores resultados: 72–119ms
+O projeto completo está disponível no GitHub:
 
-O modo com 8 threads teve instabilidade e piorou em alguns casos
-
-A GPU apresentou desempenho irregular (117–190ms), ficando próxima do desempenho serial
-
-➡ Conclusão parcial: paralelização moderada (2–4 threads) gera melhor eficiência.
-
-2. Dracula — 869KB — 8101 ocorrências
-
-A busca serial foi bem rápida: 30–74ms
-
-Com 2 threads, houve estabilidade com tempos entre 31–32ms
-
-Com 4 e 8 threads houve variação maior e alguns picos
-
-A GPU ficou em torno de 44–48ms, sem vantagem
-
-➡ Conclusão parcial: arquivos médios não se beneficiam muito de alto paralelismo.
-
-3. Moby Dick — 1.2 MB — 14715 ocorrências
-
-A forma serial variou entre 51–128ms
-
-O método com 2 e 4 threads apresentou os melhores tempos (41–82ms)
-
-Paralelismo com 8 threads teve instabilidade
-
-GPU manteve tempos entre 73–112ms
-
-➡ Conclusão parcial: paralelizar até 4 threads melhora o desempenho; acima disso há sobrecarga.
-
-# Conclusão
-
-Este estudo demonstrou que:
-
-Algoritmos paralelos podem melhorar o desempenho significativamente, mas apenas até certo ponto.
-
-A GPU, embora poderosa, não é ideal para este tipo de workload.
-
-O melhor custo-benefício foi obtido com ParallelCPU(2) e ParallelCPU(4).
-
-O framework criado se mostrou eficaz para análise estatística e poderá ser reutilizado em estudos futuros.
-
-A análise permitiu compreender como o desempenho varia conforme o tamanho do arquivo, número de threads e tipo de hardware.
-
-# Link do Projeto no GitHub
-
-https://github.com/Fabricioodsousa/ComputacaoParalela
+[https://github.com/Fabricioodsousa/ComputacaoParalela](https://github.com/Fabricioodsousa/ComputacaoParalela)
