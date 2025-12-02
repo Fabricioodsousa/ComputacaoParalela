@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "libs/**/*.jar",
+        "c:\\Users\\fabri\\Downloads\\jocl-2.0.4\\jocl-2.0.4.jar"
+    ]
+}
